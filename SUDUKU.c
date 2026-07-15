@@ -131,7 +131,7 @@ int main() {
         }
     }
 
-    printf("\nGame Over.\n");
+    printf("\nGame Done.\n");
 
     return 0;
 }
