@@ -298,7 +298,6 @@ void clearScreen(void);
 void pressEnter(void);
 void printSeparator(int width);
 void printCentered(const char *text, int width);
-long elapsedSeconds(void);
 const char *diffName(int diff);
 int  findUser(const char *username);
 int  findStatUser(const char *username);
@@ -385,11 +384,6 @@ const char *diffName(int diff)
     if (diff == DIFF_MEDIUM) return "Medium";
     if (diff == DIFF_HARD)   return "Hard";
     return "Unknown";
-}
-
-long elapsedSeconds(void)
-{
-    return (long)(time(NULL) - g_currentGame.startTime);
 }
 
 int findUser(const char *username)
@@ -741,10 +735,6 @@ void selectPuzzle(int diff, int puzzle[BOARD_SIZE][BOARD_SIZE])
 
 void printBoard(void)
 {
-    long elapsed = elapsedSeconds();
-    int  hrs     = (int)(elapsed / 3600);
-    int  mins    = (int)((elapsed % 3600) / 60);
-    int  secs    = (int)(elapsed % 60);
 
     printf("\n");
     printf("  +------------------------------------------+\n");
