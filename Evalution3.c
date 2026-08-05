@@ -33,6 +33,9 @@
 #define FILE_SAVES       "saves.dat"
 #define FILE_HIGHSCORES  "highscores.dat"
 
+#define TUTORIAL_FILE    "tutorial.txt"
+#define TUTORIAL_LINE_LEN 256
+
 /* Difficulty IDs */
 #define DIFF_EASY   1
 #define DIFF_MEDIUM 2
@@ -402,7 +405,6 @@ void clearScreen(void) {
 
 void pressEnter(void) {
     printf("\n  Press [ENTER] to continue...");
-    /* flush stdin before waiting */
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
     getchar();
@@ -422,24 +424,16 @@ void printCentered(const char *text, int width) {
     printf("%s\n", text);
 }
 
-/* Draws a box border whose dash count always matches printBoxLine's
- * content width, so borders and content never drift out of alignment. */
 void printBoxBorder(int width) {
     printf("  +");
     for (int i = 0; i < width + 2; i++) printf("-");
     printf("+\n");
 }
 
-/* Prints one left-aligned content row inside a box of the given
- * content width. Text longer than width is simply not padded
- * further (it will push the closing '|' right), so callers should
- * keep content within `width` characters. */
 void printBoxLine(const char *text, int width) {
     printf("  | %-*s |\n", width, text);
 }
 
-/* Prints one centered content row, using the same total inner span
- * (width + 2) as printBoxBorder/printBoxLine so the box stays aligned. */
 void printBoxLineCentered(const char *text, int width) {
     int inner = width + 2;
     int len   = (int)strlen(text);
@@ -1160,9 +1154,6 @@ void showHighScores(void) {
  *                  UNDER-CONSTRUCTION PLACEHOLDER
  * ============================================================ */
 
-/* Generic placeholder for menu features not yet implemented in this
- * milestone. Shows a standard "under construction" message and
- * returns control to the caller (the main menu). */
 void underConstruction(const char *featureName) {
     const int boxWidth = 36;
 
@@ -1179,9 +1170,6 @@ void underConstruction(const char *featureName) {
 /* ============================================================
  *                       TUTORIAL
  * ============================================================ */
-
-#define TUTORIAL_FILE    "tutorial.txt"
-#define TUTORIAL_LINE_LEN 256
 
 void showTutorial(void) {
     FILE *fp = fopen(TUTORIAL_FILE, "r");
